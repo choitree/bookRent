@@ -10,8 +10,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://my-time-mysql.csusbupoeps3.ap-northeast-2.rds.amazonaws.com:3306/book_rent?rewriteBatchedStatements=true
-    username: user
-    password: user123
+    username: tester
+    password: tester123
 
   jpa:
     properties:
