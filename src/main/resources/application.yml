@@ -1,0 +1,22 @@
+spring:
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        format_sql: true
+        order_inserts: true
+        order_updates: true
+        batch_versioned_date: true
+        jdbc:
+          batch_size: 500
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+    open-in-view: false
+    defer-datasource-initialization: true
+
+jwt:
+  secret: dae4dbee7586ca92c12924568ab78538f92eff770b557096c1a118ee73d923c4
