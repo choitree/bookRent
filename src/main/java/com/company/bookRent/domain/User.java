@@ -1,17 +1,18 @@
 package com.company.bookRent.domain;
 
+import com.company.bookRent.controller.dto.UserSignupDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -20,8 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 public class User implements UserDetails {
 
-    @Id
-    private String id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String loginId;
 
     private String password;
 
@@ -29,7 +33,9 @@ public class User implements UserDetails {
 
     private String email;
 
-    private Boolean gender;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -37,12 +43,24 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
+
+   public static User createUser(UserSignupDTO dto, PasswordEncoder passwordEncoder) {
+       return User.builder()
+               .loginId(dto.getLoginId())
+               .password(passwordEncoder.encode(dto.getPassword()))
+               .name(dto.getName())
+               .email(dto.getEmail())
+               .roles(Collections.singletonList("USER"))
+               .build();
+   }
 
     @Override
     public String getUsername() {
-        return id;
+        return loginId;
     }
 
     @Override
