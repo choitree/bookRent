@@ -40,7 +40,7 @@ jobs:
             
       # gradle build
       - name: Build with Gradle
-        run: gradle build -x test
+        run: gradle build -x test --info
 
       # make zip file
       - name: Make zip file
