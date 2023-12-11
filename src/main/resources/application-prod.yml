@@ -1,0 +1,26 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  sql:
+    init:
+      mode: always
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://my-time-mysql.csusbupoeps3.ap-northeast-2.rds.amazonaws.com:3306/book_rent?rewriteBatchedStatements=true
+    username: user
+    password: user123
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core: TRACE
