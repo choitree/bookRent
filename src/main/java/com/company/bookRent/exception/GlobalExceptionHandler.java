@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ResponseBody
-    @ExceptionHandler({CannotRentalException.class, IllegalAccessTokenException.class})
+    @ExceptionHandler({CannotRentalException.class, IllegalAccessTokenException.class, IllegalRentalException.class})
     public ResponseDTO<?> illegalArgumentException(Exception e) {
         log.info("e: {}", e.getMessage());
 
