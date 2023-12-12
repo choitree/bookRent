@@ -48,6 +48,6 @@ docker-compose up -d
 #### Local 실행
 ```
 ./gradlew bootJar
-java -jar -Dspring.profiles.active=local ./build/libs/myTime-0.0.1-SNAPSHOP.jar
+java -jar -Dspring.profiles.active=local ./build/libs/bookRent-0.0.1-SNAPSHOP.jar
 ```
 
