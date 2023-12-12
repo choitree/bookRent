@@ -24,6 +24,11 @@ bookRent는 도서 대출 프로젝트입니다.
 ![279900904-7caa85a9-0be4-4fce-bc3c-b8063209a1fe](https://github.com/choitree/bookRent/assets/64007131/5f04e756-abbe-42b2-91f8-ae65a005f410)
 
 
+### 배포 url 및 request/response sample
+[배포url](http://52.78.212.104)  
+
+[postman](https://documenter.getpostman.com/view/15294373/2s9YkhikCY)에서 request/response 확인 가능합니다.
+
 ### Local로 실행 방법
 #### Repository Clone
 ```
