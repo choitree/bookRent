@@ -19,5 +19,4 @@ public class BookResponseDTO {
                 .isbn(book.getIsbn())
                 .build();
     }
-
 }
