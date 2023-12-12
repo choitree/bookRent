@@ -14,4 +14,6 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
     List<Rental> findAllByBook(Book book);
 
     Rental findFirstByUserAndBookOrderByRentalDateDesc(User user, Book book);
+
+    Rental findFirstByBookOrderByRentalDateDesc(Book book);
 }
