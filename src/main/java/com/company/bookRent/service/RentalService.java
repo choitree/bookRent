@@ -46,10 +46,14 @@ public class RentalService {
         bookService.update(book);
         User user = userService.find(userId);
         Rental rental = rentalRepository.findFirstByBookOrderByRentalDateDesc(book);
+        if(rental == null) {
+            throw new IllegalRentalException("대여 내역이 없는 책은 반납할 수 없습니다.");
+        }
+
         if(rental.getReturnDate() != null) {
             throw new IllegalRentalException("이미 반납된 책은 다시 반납할 수 없습니다.");
         }
-        if(rental.getUser() != user) {
+        if(!rental.getUser().getLoginId().equals(userId)) {
             throw new IllegalRentalException("대여한 회원이 아닌 다른 회원은 반납할 수 없습니다.");
         }
         rental.returnBook();

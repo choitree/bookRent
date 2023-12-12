@@ -20,14 +20,18 @@ public class Book {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String isbn;
 
+    @Column(nullable = false)
     private Boolean isRental;
 
     @OneToMany
     @JoinColumn(name = "book_id")
+    @Builder.Default
     private List<Rental> rentals = new ArrayList<>();
 
 

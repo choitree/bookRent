@@ -19,7 +19,7 @@ public class BookController {
     public ResponseDTO<BookResponseDTO> create(@RequestBody BookRequestDTO bookRequestDTO) {
         Book book = bookService.save(bookRequestDTO);
         BookResponseDTO response = BookResponseDTO.of(book);
-        return ResponseDTO.from(ResponseType.SUCCESS, response);
+        return ResponseDTO.from(ResponseType.CREATED, response);
     }
 
     @PutMapping("/book")
