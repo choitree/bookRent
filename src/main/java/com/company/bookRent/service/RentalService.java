@@ -4,6 +4,7 @@ import com.company.bookRent.controller.dto.RentalResponseDTO;
 import com.company.bookRent.domain.Book;
 import com.company.bookRent.domain.Rental;
 import com.company.bookRent.domain.User;
+import com.company.bookRent.exception.CannotRentalException;
 import com.company.bookRent.repository.RentalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,22 +26,27 @@ public class RentalService {
                 .toList();
     }
 
-    public void rentBook(Long bookId, String userId) {
+    public RentalResponseDTO rentBook(Long bookId, String userId) {
         Book book = bookService.find(bookId);
+        if(book.getIsRental()) {
+            throw new CannotRentalException();
+        }
         book.rentBook();
         bookService.update(book);
         User user = userService.find(userId);
         Rental rental = Rental.rentBook(book, user);
-        rentalRepository.save(rental);
+        Rental saveRental = rentalRepository.save(rental);
+        return RentalResponseDTO.of(saveRental);
     }
 
-    public void returnBook(Long bookId, String userId) {
+    public RentalResponseDTO returnBook(Long bookId, String userId) {
         Book book = bookService.find(bookId);
         book.returnBook();
         bookService.update(book);
         User user = userService.find(userId);
         Rental rental = rentalRepository.findFirstByUserAndBookOrderByRentalDateDesc(user, book);
         rental.returnBook();
-        rentalRepository.save(rental);
+        Rental saveRental = rentalRepository.save(rental);
+        return RentalResponseDTO.of(saveRental);
     }
 }

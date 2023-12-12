@@ -2,6 +2,7 @@ package com.company.bookRent.service;
 
 import com.company.bookRent.controller.dto.BookRequestDTO;
 import com.company.bookRent.domain.Book;
+import com.company.bookRent.exception.BookNotFoundException;
 import com.company.bookRent.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class BookService {
 
     public Book find(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new BookNotFoundException());
     }
 
     public Book update(Book book) {
