@@ -1,7 +1,9 @@
 package com.company.bookRent.controller;
 
 import com.company.bookRent.controller.dto.RentalResponseDTO;
-import com.company.bookRent.domain.Rental;
+import com.company.bookRent.exception.IllegalAccessTokenException;
+import com.company.bookRent.globalResponse.ResponseDTO;
+import com.company.bookRent.globalResponse.ResponseType;
 import com.company.bookRent.service.RentalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.json.BasicJsonParser;
@@ -27,26 +29,29 @@ public class RentalController {
         Map<String, Object> jsonArray = jsonParser.parseMap(payload);
 
         if(!jsonArray.containsKey("sub")) {
-            throw new RuntimeException("유효하지 않은 AccessToken입니다.");
+            throw new IllegalAccessTokenException();
         }
         return jsonArray.get("sub").toString();
 
     }
 
     @GetMapping("/rental")
-    public List<RentalResponseDTO> getRentalList(@RequestParam Long bookId) {
-        return rentalService.getRentalList(bookId);
+    public ResponseDTO<List<RentalResponseDTO>> getRentalList(@RequestParam Long bookId) {
+        List<RentalResponseDTO> response = rentalService.getRentalList(bookId);
+        return ResponseDTO.from(ResponseType.SUCCESS, response);
     }
 
     @PostMapping("/rental")
-    public void rentBook(@RequestParam Long bookId, @RequestHeader("Authorization") String bearerToken) {
+    public ResponseDTO<RentalResponseDTO> rentBook(@RequestParam Long bookId, @RequestHeader("Authorization") String bearerToken) {
         String loginId = getLoginId(bearerToken);
-        rentalService.rentBook(bookId, loginId);
+        RentalResponseDTO response = rentalService.rentBook(bookId, loginId);
+        return ResponseDTO.from(ResponseType.SUCCESS, response);
     }
 
     @PutMapping("/rental")
-    public void returnBook(@RequestParam Long bookId, @RequestHeader("Authorization") String bearerToken) {
+    public ResponseDTO<RentalResponseDTO> returnBook(@RequestParam Long bookId, @RequestHeader("Authorization") String bearerToken) {
         String loginId = getLoginId(bearerToken);
-        rentalService.returnBook(bookId, loginId);
+        RentalResponseDTO response = rentalService.returnBook(bookId, loginId);
+        return ResponseDTO.from(ResponseType.SUCCESS, response);
     }
 }

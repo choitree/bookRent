@@ -1,6 +1,8 @@
 package com.company.bookRent.service;
 
 import com.company.bookRent.domain.User;
+import com.company.bookRent.exception.DuplicateUserException;
+import com.company.bookRent.exception.UserNotFoundException;
 import com.company.bookRent.jwt.JwtToken;
 import com.company.bookRent.jwt.JwtTokenProvider;
 import com.company.bookRent.repository.UserRepository;
@@ -38,7 +40,7 @@ public class UserService implements UserDetailsService{
 
     public User find(String loginId) {
         return userRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new UserNotFoundException());
     }
 
     public User save(User user) {
@@ -48,7 +50,7 @@ public class UserService implements UserDetailsService{
 
     private void validateDuplicateUser(User user) {
         if (userRepository.findByLoginId(user.getLoginId()).isPresent()) {
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+            throw new DuplicateUserException();
         }
     }
 
