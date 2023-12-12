@@ -16,8 +16,8 @@ bookRent는 도서 대출 프로젝트입니다.
 
 <img src="https://img.shields.io/badge/amazon aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"> <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> <img src="https://img.shields.io/badge/amazon IAM-FF9900?style=for-the-badge&logo=amazoniam&logoColor=white"> <img src="https://img.shields.io/badge/amazon vpc-DC382D?style=for-the-badge&logo=amazonvpc&logoColor=white"> <img src="https://img.shields.io/badge/amazon codedeploy-000000?style=for-the-badge&logo=amazoncodedeploy&logoColor=white"> 
 
-### 프로젝트 환경 구성
-<img src="https://github.com/choitree/bookRent/assets/64007131/1ad991c6-c12b-4466-a6c3-6c990675695f" width="800" height="600">
+### AWS 구성 내역
+![aws 구성도](https://github.com/choitree/bookRent/assets/64007131/b9b6079e-5b57-4816-b86a-accfd2a1cad1)
 
 
 ### 배포 파이프라인(GITHUB ACTION)
